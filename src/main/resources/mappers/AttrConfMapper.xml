@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scopa.cona.database.mappers.AttrConfMapper">
+
+    <insert id="insertAttrConf" parameterType="AttrConf" useGeneratedKeys="true" keyProperty="attrConfId">
+        insert into attr_conf(conf_dict_id, attr_name,
+                              conf_param, is_optional,
+                              column_type, description, is_type)
+                values (#{confDictId}, #{attrName},
+                        #{confParam}, #{isOptional},
+                        #{columnType}, #{description}, #{isType})
+    </insert>
+
+    <delete id="deleteAttrConf" parameterType="int">
+        DELETE FROM attr_conf WHERE attr_conf_id =#{attrConfId}
+    </delete>
+
+    <update id="updateAttrConf" parameterType="AttrConf">
+        UPDATE attr_conf
+        SET
+        conf_dict_id = #{confDictId},
+        attr_name = #{attrName},
+        conf_param = #{confParam},
+        is_optional = #{isOptional},
+        column_type = #{columnType},
+        description = #{description},
+        is_type = #{isType}
+        WHERE attr_conf_id = #{attrConfId}
+    </update>
+
+
+    <select id="selectAttrConfById" parameterType="int" resultType="AttrConf">
+        select attr_conf_id as attrConfId, conf_dict_id as confDictId,
+              attr_name as attrName, conf_param as confParam,
+              is_optional as isOptional, column_type as columnType,
+              description as description, is_type as isType
+         from attr_conf where attr_conf_id = #{attrConfId}
+    </select>
+
+</mapper>

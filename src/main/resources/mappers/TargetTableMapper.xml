@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scopa.cona.database.mappers.TargetTableMapper">
+
+
+    <insert id="insertTargetTable" parameterType="TargetTable" useGeneratedKeys="true" keyProperty="targetTableId">
+        insert into target_table(label_cn, label_en,
+                              tb_type, description,
+                               version)
+                  values (#{labelCn}, #{labelEn},
+                          #{tbType}, #{description},
+                          #{version})
+    </insert>
+
+    <delete id="deleteTargetTable" parameterType="int">
+        DELETE FROM target_table WHERE target_table_id = #{targetTableId}
+    </delete>
+
+    <update id="updateTargetTable" parameterType="TargetTable">
+        UPDATE target_table
+        SET
+        label_cn = #{labelCn},
+        label_en = #{labelEn},
+        tb_type = #{tbType},
+        description = #{description},
+        version = #{version}
+        WHERE target_table_id = #{targetTableId}
+    </update>
+
+
+    <select id="selectTargetTableById" parameterType="int" resultType="TargetTable">
+        select target_table_id as targetTableId, label_cn as labelCn, label_en as labelEn,
+              tb_type as tbType, description as description,
+              version as version
+            from target_table where target_table_id = #{targetTableId}
+    </select>
+
+    <select id="selectTargetTableByLabelEn" parameterType="String" resultType="TargetTable">
+        select target_table_id as targetTableId, label_cn as labelCn, label_en as labelEn,
+        tb_type as tbType, description as description,
+        version as version
+        from target_table where label_en = #{labelEn}
+    </select>
+
+</mapper>

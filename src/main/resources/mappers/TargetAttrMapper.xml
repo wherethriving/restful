@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scopa.cona.database.mappers.TargetAttrMapper">
+
+
+
+    <insert id="insertTargetAttr" parameterType="TargetAttr" useGeneratedKeys="true" keyProperty="targetAttrId">
+        insert into target_attr(target_table_id, name_cn,
+                  name_en, element_type,
+                  origin_tb_is_existed, is_primary_attr,
+                  description, hdfs_saved_type, offset)
+                  values (#{targetTableId}, #{nameCn},
+                          #{nameEn}, #{elementType},
+                          #{originTbIsExisted}, #{isPrimaryAttr},
+                          #{description}, #{hdfsSavedType}, #{offset})
+    </insert>
+
+    <delete id="deleteTargetAttr" parameterType="int">
+        DELETE FROM target_attr WHERE target_attr_id = #{targetAttrId}
+    </delete>
+
+    <update id="updateTargetAttr" parameterType="TargetAttr">
+        UPDATE target_attr
+        SET
+        target_table_id = #{targetTableId},
+        name_cn = #{nameCn},
+        name_en = #{nameEn},
+        element_type = #{elementType},
+        origin_tb_is_existed = #{originTbIsExisted},
+        is_primary_attr = #{isPrimaryAttr},
+        description = #{description},
+        hdfs_saved_type = #{hdfsSavedType},
+        offset = #{offset}
+        WHERE target_attr_id = #{targetAttrId}
+    </update>
+
+
+    <select id="selectTargetAttrById" parameterType="int" resultType="TargetAttr">
+        select target_attr_id as targetAttrId, target_table_id as targetTableId,
+              name_cn as nameCn,
+              name_en as nameEn, element_type as elementType,
+              origin_tb_is_existed as originTbIsExisted, is_primary_attr as isPrimaryAttr,
+              description as description, hdfs_saved_type as hdfsSavedType,
+              offset as offset
+          from target_attr where target_attr_id = #{targetAttrId}
+    </select>
+
+    <select id="selectTargetAttrByTargetTableId" parameterType="int" resultType="TargetAttr">
+        select target_attr_id as targetAttrId, target_table_id as targetTableId,
+        name_cn as nameCn,
+        name_en as nameEn, element_type as elementType,
+        origin_tb_is_existed as originTbIsExisted, is_primary_attr as isPrimaryAttr,
+        description as description, hdfs_saved_type as hdfsSavedType,
+        offset as offset
+        from target_attr where target_table_id = #{targetTableId}
+    </select>
+
+</mapper>
